@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>推文與推廣 — 御赦天堂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700;900&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    /* promo- prefix to avoid collisions */
+    .promo-box { background:#231640; border:1px solid rgba(217, 173, 70,0.55); border-radius:4px; padding:20px; margin-bottom:20px; }
+    .promo-h3 { font-size:1em; margin:0 0 12px 0; padding-left:10px; }
+    .promo-ul { margin:8px 0 0 0; padding-left:20px; color:#ece1c6; font-size:.93em; line-height:1.9; }
+    .promo-ul li { margin-bottom:4px; }
+    .promo-report { background:#281c48; padding:10px; border:1px dashed rgba(217, 173, 70,0.55); margin-top:10px; font-size:.88em; font-family:monospace; line-height:1.6; color:#ece1c6; }
+    .promo-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+    .promo-table th { background:linear-gradient(90deg, rgba(217, 173, 70,0.22) 0%, rgba(217, 173, 70,0.08) 100%); color:#f7cf4a; font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.12em; padding:10px 16px; border:1px solid rgba(217, 173, 70,0.55); text-align:left; }
+    .promo-table td { background:#281c48; padding:10px 16px; border:1px solid rgba(217, 173, 70,0.18); color:#ece1c6; }
+    .promo-table tr:nth-child(even) td { background:#231640; }
+    .promo-table tr:hover td { background:#332456; }
+    .promo-table td:first-child { color:#fff4d8; }
+    .promo-badge-box { display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+    .promo-badge-item { border:1px solid rgba(217, 173, 70,0.55); border-radius:4px; padding:14px; background:#281c48; flex:1; min-width:240px; }
+    .promo-alert { background:#2c1e52; border-left:5px solid #d84a38; padding:14px 16px; margin-bottom:22px; border-radius:4px; }
+    .promo-warning { background:#2c1e52; border:2px solid rgba(216, 74, 56,.5); border-radius:4px; padding:18px 20px; margin-bottom:24px; }
+    .promo-fb-copy { background:#281c48; padding:20px; border-radius:4px; font-size:.92em; color:#ece1c6; border:1px solid rgba(217, 173, 70,0.55); white-space:pre-wrap; font-family:inherit; line-height:1.7; }
+    .promo-coupon { border:1px solid rgba(146, 86, 214,.3); border-radius:4px; padding:18px; background:#281c48; margin-bottom:24px; }
+    .promo-coupon-col { flex:1; min-width:260px; background:#281c48; padding:14px; border-radius:4px; }
+    .promo-buff-box { background:#2c1e52; padding:14px; border-radius:4px; border:1px solid rgba(173, 120, 230,.3); margin-bottom:20px; }
+    .promo-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:16px; margin-bottom:24px; }
+    @media (max-width:680px) { .promo-grid { grid-template-columns:1fr; } }
+
+    /* ── 頁內目錄 ── */
+    .promo-toc {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      max-width: 900px;
+      margin: 0 auto 32px;
+      padding: 16px 20px;
+      background: linear-gradient(160deg, #332456 0%, #231640 100%);
+      border: 1px solid rgba(217, 173, 70,0.18);
+      border-top: 2px solid #f0c33c;
+      position: sticky;
+      top: 60px;
+      z-index: 50;
+    }
+    .promo-toc__link {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #f7cf4a;
+      text-decoration: none;
+      padding: 6px 14px;
+      border: 1px solid rgba(217, 173, 70,0.55);
+      background: #332456;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .promo-toc__link:hover {
+      color: #f0c33c;
+      border-color: #f0c33c;
+      background: rgba(217, 173, 70,0.1);
+    }
+    @media (max-width:600px) {
+      .promo-toc { gap: 6px; padding: 12px 14px; }
+      .promo-toc__link { font-size: 0.7rem; padding: 5px 10px; }
+    }
+
+  </style>
+<link rel="icon" type="image/jpeg" href="../assets/images/logo-circle.jpg">
+</head>
+<body>
+  <div class="float-sidebar float-sidebar--left">
+    <a href="sponsor.html" class="float-btn float-btn--sponsor">
+      <span class="float-btn-bg" style="background-image:url('../assets/images/float-sponsor.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg></span>
+      <span class="float-label">贊助</span>
+    </a>
+    <a href="download.html" class="float-btn float-btn--download">
+      <span class="float-btn-bg" style="background-image:url('../assets/images/float-download.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></span>
+      <span class="float-label">下載</span>
+    </a>
+  </div>
+  <div class="float-sidebar float-sidebar--right">
+    <a href="https://line.me/ti/g2/zhNz5BNZeWapB9HD1bZQGAyxI74_OVx8PPttyQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="float-btn float-btn--line">
+      <span class="float-btn-bg" style="background-image:url('../assets/images/float-community.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></span>
+      <span class="float-label">社群</span>
+    </a>
+    <a href="https://lin.ee/PKHUd99" target="_blank" class="float-btn float-btn--line-cs">
+      <span class="float-btn-bg" style="background-image:url('../assets/images/float-service.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.82.49 3.53 1.34 5L2 22l5.08-1.31A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-2h2v2zm2.07-5.75l-.9.92C11.45 11.9 11 12.5 11 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H6c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg></span>
+      <span class="float-label">客服</span>
+    </a>
+  </div>
+  <header id="site-header">
+    <div class="header-inner container">
+      <a href="../index.html" class="site-logo">
+        <img src="../assets/images/logo-circle.jpg" class="logo-icon" alt="御赦天堂">
+        <span class="logo-text">御赦天堂</span></a>
+      <nav class="site-nav">
+        <a href="download.html" class="nav-btn nav-btn--primary">遊戲下載</a>
+        <a href="news.html" class="nav-btn">最新公告</a><a href="events.html" class="nav-btn">活動資訊</a><a href="features-overview.html" class="nav-btn">遊戲特色</a><a href="version.html" class="nav-btn">版本設定</a><a href="items-overview.html" class="nav-btn">裝備道具</a><a href="boss-guide.html" class="nav-btn">BOSS介紹</a>
+        <div class="nav-dropdown"><button class="nav-dropdown__toggle">服務專區</button><div class="nav-dropdown__menu"><a href="disclaimer.html">免責聲明</a><a href="rules.html">遊戲規章</a><a href="class-change.html">轉職介紹</a></div></div><a href="promote.html" class="nav-btn">推文推廣</a><span class="nav-sponsor-wrap"><a href="sponsor.html" class="nav-btn">贊助說明</a><span class="nav-sponsor-coin">🪙</span><span class="nav-sponsor-coin">💰</span><span class="nav-sponsor-coin">🪙</span><span class="nav-sponsor-sparkle">✦</span><span class="nav-sponsor-sparkle">✦</span><span class="nav-sponsor-sparkle">✧</span><span class="nav-sponsor-sparkle">✦</span></span><button class="search-toggle" aria-label="搜尋">◈ 搜尋</button>
+      </nav>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="開啟選單"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="download.html">遊戲下載</a><a href="news.html">最新公告</a>
+      <a href="events.html">活動資訊</a><a href="features-overview.html">遊戲特色</a><a href="version.html">版本設定</a><a href="items-overview.html">裝備道具</a><a href="boss-guide.html">BOSS介紹</a><span class="mobile-group-label">▸ 服務專區</span><a href="disclaimer.html" class="mobile-sub">免責聲明</a><a href="rules.html" class="mobile-sub">遊戲規章</a><a href="class-change.html" class="mobile-sub">轉職介紹</a><a href="promote.html">推文推廣</a><a href="sponsor.html">贊助說明</a>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <p class="page-hero__eyebrow">YU SHE · LINEAGE — PROMOTE</p>
+    <h1 class="page-hero__title">推文<span>推廣</span></h1>
+    <p class="page-hero__sub">推廣活動說明、獎勵兌換與推文規章</p>
+  </div>
+
+  <main class="fp-wrap">
+
+    <!-- ══ 頁內目錄 ══ -->
+    <nav class="promo-toc">
+      <a href="#sec-pre" class="promo-toc__link">◈ 事前推廣</a>
+      <a href="#sec-rules" class="promo-toc__link">◆ 推文規定</a>
+      <a href="#sec-copy" class="promo-toc__link">◈ 推廣文案</a>
+      <a href="#sec-groups" class="promo-toc__link">◆ 社團列表</a>
+      <a href="#sec-shop" class="promo-toc__link">◈ 兌換清單</a>
+      <a href="#sec-badge" class="promo-toc__link">◆ 獎勵能力</a>
+      <a href="#sec-live" class="promo-toc__link">◆ 直播說明</a>
+    </nav>
+
+    <!-- ══ 事前推廣 ══ -->
+    <!-- ══ 包月服務方案 ══ -->
+    <div id="sec-pre" style="margin-bottom:28px;">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+
+        <!-- 推文包月 -->
+        <div style="flex:1;min-width:280px;background:linear-gradient(160deg,#332456,#281c48);border:1px solid rgba(217, 173, 70,0.55);border-top:3px solid #f7cf4a;padding:0;overflow:hidden;">
+          <div style="padding:20px 24px;text-align:center;border-bottom:1px solid rgba(217, 173, 70,0.18);">
+            <div style="font-family:'Cinzel',serif;font-size:0.7rem;color:#c6b487;letter-spacing:0.2em;margin-bottom:6px;">MONTHLY PLAN</div>
+            <div style="font-size:1.1rem;font-weight:700;color:#fff4d8;letter-spacing:0.08em;">推文包月</div>
+          </div>
+          <div style="padding:24px;text-align:center;">
+            <div style="font-family:'Cinzel',serif;font-size:2.2rem;font-weight:700;color:#f0c33c;text-shadow:none;">$399</div>
+            <div style="font-size:0.78rem;color:#c6b487;margin-top:2px;">/ 1 帳號 / 月</div>
+            <div style="margin:16px 0;height:1px;background:linear-gradient(90deg,transparent,rgba(217, 173, 70,0.55),transparent);"></div>
+            <div style="font-size:0.85rem;color:#ece1c6;line-height:1.8;text-align:left;padding:0 8px;">
+              <div>◆ 委託合作推文商代操</div>
+              <div>◆ 獎勵直接入庫</div>
+              <div>◆ 不用自己跑社團</div>
+              <div style="margin-top:8px;padding:6px 10px;background:rgba(217, 173, 70,0.08);border:1px solid rgba(217, 173, 70,0.25);border-radius:4px;color:#f7cf4a;font-weight:700;font-size:0.82rem;text-align:center;">🎁 包月即贈 1 張 VIP 貴賓卡</div>
+              <div style="margin-top:8px;font-size:0.75rem;color:#c6b487;line-height:1.5;">※ 由官方合作推文業者執行<br>省時省力，專業代操</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 推文特惠 -->
+        <div style="flex:1;min-width:280px;background:linear-gradient(160deg,#2c1e52,#281c48);border:2px solid rgba(216, 74, 56,0.4);border-top:3px solid #d84a38;padding:0;overflow:hidden;position:relative;">
+          <div style="position:absolute;top:12px;right:12px;background:#d84a38;color:#ffffff;font-size:0.65rem;font-weight:700;padding:3px 10px;letter-spacing:0.08em;">省 $198</div>
+          <div style="padding:20px 24px;text-align:center;border-bottom:1px solid rgba(216, 74, 56,0.2);">
+            <div style="font-family:'Cinzel',serif;font-size:0.7rem;color:#d84a38;letter-spacing:0.2em;margin-bottom:6px;">BEST VALUE</div>
+            <div style="font-size:1.1rem;font-weight:700;color:#d84a38;letter-spacing:0.08em;">推文包月 · 特惠</div>
+          </div>
+          <div style="padding:24px;text-align:center;">
+            <div style="font-family:'Cinzel',serif;font-size:2.2rem;font-weight:700;color:#d84a38;text-shadow:none;">$999</div>
+            <div style="font-size:0.78rem;color:#c6b487;margin-top:2px;">/ 3 帳號 / 月</div>
+            <div style="margin:16px 0;height:1px;background:linear-gradient(90deg,transparent,rgba(216, 74, 56,0.3),transparent);"></div>
+            <div style="font-size:0.85rem;color:#ece1c6;line-height:1.8;text-align:left;padding:0 8px;">
+              <div>◆ 3 人同行或 3 組帳號</div>
+              <div>◆ 每帳平均 <strong style="color:#f7cf4a;">$333</strong></div>
+              <div>◆ 合作推文商代操 · 獎勵入庫</div>
+              <div style="margin-top:8px;padding:6px 10px;background:rgba(216, 74, 56,0.08);border:1px solid rgba(216, 74, 56,0.25);border-radius:4px;color:#d84a38;font-weight:700;font-size:0.82rem;text-align:center;">🎁 包月即贈 1 張 VIP 貴賓卡</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 直播包月 -->
+        <div style="flex:1;min-width:280px;background:linear-gradient(160deg,#332456,#281c48);border:2px solid rgba(217, 173, 70,0.4);border-top:3px solid #f0c33c;padding:0;overflow:hidden;position:relative;">
+          <div style="position:absolute;top:12px;right:12px;background:#f0c33c;color:#ece1c6;font-size:0.65rem;font-weight:700;padding:3px 10px;letter-spacing:0.08em;">超值回饋</div>
+          <div style="padding:20px 24px;text-align:center;border-bottom:1px solid rgba(217, 173, 70,0.2);">
+            <div style="font-family:'Cinzel',serif;font-size:0.7rem;color:#f7cf4a;letter-spacing:0.2em;margin-bottom:6px;">STREAMER PLAN</div>
+            <div style="font-size:1.1rem;font-weight:700;color:#f7cf4a;letter-spacing:0.08em;">直播包月</div>
+          </div>
+          <div style="padding:24px;text-align:center;">
+            <div style="font-family:'Cinzel',serif;font-size:2.2rem;font-weight:700;color:#f0c33c;text-shadow:none;">$2,800</div>
+            <div style="font-size:0.78rem;color:#c6b487;margin-top:2px;">/ 月</div>
+            <div style="margin:16px 0;height:1px;background:linear-gradient(90deg,transparent,rgba(217, 173, 70,0.3),transparent);"></div>
+            <div style="font-size:0.85rem;color:#ece1c6;line-height:1.8;text-align:left;padding:0 8px;">
+              <div>◆ 總價值 <strong style="color:#f7cf4a;">$4,650 藍鑽</strong></div>
+              <div>◆ <strong style="color:#b078c4;">1,395 推廣幣</strong></div>
+              <div>◆ 直播專屬獎勵箱</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:16px;text-align:center;">
+        <a href="https://lin.ee/O08U7AO" target="_blank" rel="noopener" style="display:inline-block;background:linear-gradient(90deg,#f0c33c,#c9962e);color:#ece1c6;font-weight:700;font-size:0.9rem;padding:10px 28px;border-radius:2px;text-decoration:none;letter-spacing:0.08em;">私訊 LINE 申請包月服務</a>
+      </div>
+    </div>
+
+    <!-- ══ 推文規定 ══ -->
+    <p class="fp-heading" id="sec-rules">◆ 推文規定</p>
+
+    <!-- 重要時程 -->
+    <div class="promo-alert">
+      <strong style="color:#d84a38;font-size:1em">⏰ 重要時程</strong>
+      <ul class="promo-ul" style="margin-top:8px">
+        <li><strong style="color:#fff4d8">獎勵發放時間：</strong>今日推、隔日發，<span style="color:#d84a38;font-weight:bold">隔天 18:00 前</span>統一發放。</li>
+      </ul>
+    </div>
+
+    <!-- 回報範例 + 發文規定 -->
+    <div class="promo-grid">
+      <div class="promo-box" style="margin:0">
+        <strong style="color:#c368f5">📋 推文回報範例</strong>
+        <div class="promo-report">
+          推文回報日期：<br>
+          遊戲ＩＤ：<br>
+          遊戲帳號：<br>
+          1.(網址/截圖)<br>
+          2.(網址/截圖)<br>
+          3.(網址/截圖)
+        </div>
+        <p style="margin-top:10px;text-align:center">
+          <a href="https://web-hosts.net/share/pXP3QvEb" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#5895e4,#5894e4);color:#ffffff;padding:8px 24px;border-radius:4px;font-weight:bold;font-size:.88em;text-decoration:none;letter-spacing:0.05em;box-shadow:0 2px 8px rgba(88, 149, 228,0.3);transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(88, 149, 228,0.5)'" onmouseout="this.style.boxShadow='0 2px 8px rgba(88, 149, 228,0.3)'">📋 前往推文回報</a>
+        </p>
+      </div>
+      <div class="promo-box" style="margin:0">
+        <strong style="color:#f7cf4a">📜 發文規定</strong>
+        <ul class="promo-ul">
+          <li><strong style="color:#fff4d8">社團限制：</strong>至「各大私服社團分享」社團人數至少 <span style="color:#d84a38;font-weight:bold">3 萬人以上</span>。</li>
+          <li><strong style="color:#fff4d8">內容要求：</strong>分享貼文必須留下下方官方美化文案。</li>
+          <li><strong style="color:#fff4d8">重複規範：</strong>同則推文限領 1 隻角色，且必須分享至不同社團。</li>
+          <li><strong style="color:#fff4d8">獎勵上限：</strong>單則 5 顆推廣幣 / <span style="color:#f7cf4a;font-weight:bold">每人單日上限 50 顆推廣幣</span> (10次)。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══ FB 官方推廣文案 ══ -->
+    <p class="fp-heading" id="sec-copy">◈ FB 官方推廣文案</p>
+    <div class="fp-intro">請完整複製下方內容，貼至社團推文中。</div>
+
+    <div class="promo-fb-copy">━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔥【 御赦天堂 】09/04 20:00 開服，不廢話，直接上！🔥
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+日期:（請依日期輸入）
+遊戲名稱:（請依名稱輸入，若無輸入視同無推）
+
+💀 沒親友、沒後門 — 憑實力說話
+⚔️ 版本：3.81 內掛版
+🎯 等級上限 52 等，不用肝到天荒地老
+
+🔹 經驗 10 倍 ｜ 金幣 1 倍 ｜ 掉寶 1 倍
+🔹 強化 2 倍 ｜ 正義 3 倍 ｜ 負重 4 倍
+🔹 寵物 5 倍
+
+👤【 角色設定 】
+手點能力上限：25 點
+萬能藥限制：10 瓶
+素質總上限：35 點（含萬能藥）
+
+💎【 這服有什麼不一樣？】
+✅ 全新戰鬥模式 — 不是無腦站擼，要動腦
+✅ 獨特裝備系統 — 轉生裝、職業之力、BOSS裝
+✅ 業界無親友 — GM 不下場，公平就是公平
+✅ 負面魔法動態平衡 — 沒有絕對免疫，魔法消除才是王道
+
+🌍 官網：https://xin-jun-team.github.io/yushe-paradise/index.html
+📢 兄弟，開服見！
+#御赦天堂 #手動天堂 #天堂M變身 #無親友 #憑實力
+━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+
+    <!-- ══ 社團推薦列表 ══ -->
+    <p class="fp-heading" id="sec-groups" style="margin-top:36px">◆ 社團推薦列表</p>
+    <div class="promo-box" style="font-size:.92em;line-height:2">
+      • <a href="https://www.facebook.com/groups/1479500612362554/" target="_blank" style="color:#f7cf4a">TW天堂私服列表網</a><br>
+      • <a href="https://www.facebook.com/groups/335046453597856/" target="_blank" style="color:#f7cf4a">天堂私服分享區</a><br>
+      • <a href="https://www.facebook.com/groups/162326847259633/" target="_blank" style="color:#f7cf4a">天堂私服好朋友~</a><br>
+      • <a href="https://www.facebook.com/groups/1993631524206941/" target="_blank" style="color:#f7cf4a">天堂123最新私服宣傳區</a><br>
+      • <a href="https://www.facebook.com/groups/1697243327244454/" target="_blank" style="color:#f7cf4a">天堂私服宣傳</a>
+    </div>
+
+    <hr style="border:0;border-top:1px solid rgba(217, 173, 70,0.55);margin:28px 0">
+
+    <!-- ══ 推廣商人兌換清單 ══ -->
+    <p class="fp-heading" id="sec-shop">◈ 推廣商人「小黑棍」兌換清單</p>
+    <div style="overflow-x:auto;border:1px solid rgba(217, 173, 70,0.55);border-radius:4px;margin-bottom:24px">
+      <table class="promo-table">
+        <thead><tr><th>兌換項目</th><th style="text-align:center;width:18%">所需推廣幣</th><th>兌換項目</th><th style="text-align:center;width:18%">所需推廣幣</th></tr></thead>
+        <tbody>
+          <tr><td>推廣大使 LV.1 (限時7日)</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">30</td><td>回憶蠟燭</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">300</td></tr>
+          <tr><td>推廣大使強化卷軸 (100%成功)</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">10</td><td>進化 / 勝利果實</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">120 / 180</td></tr>
+          <tr><td>BUFF 推廣勳章 (1 / 3 / 6HR)</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">30 / 60 / 90</td><td>對武器祝福卷軸</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">90</td></tr>
+          <tr><td>四大屬性武器強化卷軸</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">6</td><td>對防具 / 飾品祝福卷軸</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">30 / 45</td></tr>
+          <tr><td>密碼修改卷軸</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">240</td><td>魔法屏障卷軸 * 50</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">6</td></tr>
+          <tr><td>魔法卷軸 (聖潔之光) * 30</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">6</td><td>神奇扭蛋</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">15</td></tr>
+          <tr><td>巧克力蛋糕 (刻印) ×3</td><td style="text-align:center;font-weight:bold;color:#f7cf4a">6</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ 推廣大使能力介紹 ══ -->
+    <p class="fp-heading" id="sec-badge">◆ 推廣獎勵物品能力介紹</p>
+    <div style="overflow-x:auto;border:1px solid rgba(217, 173, 70,0.55);border-radius:4px;margin-bottom:16px">
+      <table class="promo-table">
+        <thead><tr><th>道具</th><th style="text-align:center">近遠傷</th><th style="text-align:center">魔防</th><th style="text-align:center">魔攻</th><th style="text-align:center">負重</th><th style="text-align:center">經驗</th><th style="text-align:center">防禦</th><th style="text-align:center">HP</th><th style="text-align:center">回血魔</th></tr></thead>
+        <tbody>
+          <tr><td>推廣大使 LV.1</td><td style="text-align:center;color:#f7cf4a">+1</td><td style="text-align:center">+1</td><td style="text-align:center">+1</td><td style="text-align:center">+10</td><td style="text-align:center;color:#a835e6">+10%</td><td style="text-align:center;color:#d84a38">-1</td><td style="text-align:center">—</td><td style="text-align:center;color:#a835e6">+1</td></tr>
+          <tr><td>推廣大使 LV.2</td><td style="text-align:center;color:#f7cf4a">+1</td><td style="text-align:center">+2</td><td style="text-align:center">+1</td><td style="text-align:center">+20</td><td style="text-align:center;color:#a835e6">+12%</td><td style="text-align:center;color:#d84a38">-1</td><td style="text-align:center">—</td><td style="text-align:center;color:#a835e6">+1</td></tr>
+          <tr><td>推廣大使 LV.3</td><td style="text-align:center;color:#f7cf4a">+2</td><td style="text-align:center">+3</td><td style="text-align:center">+1</td><td style="text-align:center">+30</td><td style="text-align:center;color:#a835e6">+14%</td><td style="text-align:center;color:#d84a38">-2</td><td style="text-align:center">—</td><td style="text-align:center;color:#a835e6">+2</td></tr>
+          <tr><td>推廣大使 LV.4</td><td style="text-align:center;color:#f7cf4a">+2</td><td style="text-align:center">+4</td><td style="text-align:center">+1</td><td style="text-align:center">+40</td><td style="text-align:center;color:#a835e6">+16%</td><td style="text-align:center;color:#d84a38">-2</td><td style="text-align:center">—</td><td style="text-align:center;color:#a835e6">+2</td></tr>
+          <tr><td style="color:#f7cf4a">推廣大使 LV.5</td><td style="text-align:center;color:#f7cf4a">+3</td><td style="text-align:center">+5</td><td style="text-align:center">+2</td><td style="text-align:center">+50</td><td style="text-align:center;color:#a835e6">+20%</td><td style="text-align:center;color:#d84a38">-3</td><td style="text-align:center;color:#f7cf4a;font-weight:bold">+150</td><td style="text-align:center;color:#a835e6">+3</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="promo-buff-box">
+      <strong style="color:#c368f5">✨ BUFF 類推廣勳章 (1 / 3 / 6 HR 共通能力)</strong>
+      <div style="margin-top:8px;font-size:.93em;color:#c368f5;font-weight:bold">HP +80, 魔力回復 +2, 魔防 +5, 傷害減免 +2, 爆擊 +3% (1倍), 負重 +50</div>
+      <div style="font-size:.82em;color:#ece1c6;margin-top:4px">(兌換後即刻開始計時，不使用時請勿領取)</div>
+    </div>
+
+    <hr style="border:0;border-top:1px solid rgba(217, 173, 70,0.55);margin:28px 0">
+
+    <!-- ══ 直播說明 ══ -->
+    <p class="fp-heading" id="sec-live">◆ 直播說明</p>
+
+    <!-- 直播回報範例 + 推廣箱 -->
+    <div class="promo-grid">
+      <div class="promo-box" style="margin:0">
+        <strong style="color:#c368f5">📋 直播回報範例</strong>
+        <div class="promo-report" style="margin-top:10px">
+          直播回報日期：<br>
+          遊戲ＩＤ：<br>
+          遊戲帳號：<br>
+          1.(網址)
+        </div>
+        <p style="margin:8px 0 0 0;color:#d84a38;font-size:.82em;font-weight:bold;text-align:center">※ 逾時上傳不予補發</p>
+        <p style="margin-top:8px;text-align:center">
+          <a href="https://web-hosts.net/share/pXP3QvEb" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#5895e4,#5894e4);color:#ffffff;padding:8px 24px;border-radius:4px;font-weight:bold;font-size:.88em;text-decoration:none;letter-spacing:0.05em;box-shadow:0 2px 8px rgba(88, 149, 228,0.3);transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(88, 149, 228,0.5)'" onmouseout="this.style.boxShadow='0 2px 8px rgba(88, 149, 228,0.3)'">📋 前往直播回報</a>
+        </p>
+      </div>
+      <div class="promo-box" style="margin:0">
+        <strong style="color:#f0c33c">🎁 直播推廣箱內容物</strong>
+        <div style="margin-top:10px;overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;text-align:center">
+            <thead>
+              <tr style="background:linear-gradient(90deg, rgba(217, 173, 70,0.2) 0%, rgba(217, 173, 70,0.08) 100%)">
+                <th style="padding:5px 8px;border:1px solid rgba(217, 173, 70,0.55);color:#f7cf4a">直播時數</th>
+                <th style="padding:5px 8px;border:1px solid rgba(217, 173, 70,0.55);color:#f7cf4a">藍鑽</th>
+                <th style="padding:5px 8px;border:1px solid rgba(217, 173, 70,0.55);color:#f7cf4a">推廣幣</th>
+                <th style="padding:5px 8px;border:1px solid rgba(217, 173, 70,0.55);color:#f7cf4a">BUFF大使</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#281c48;color:#fff4d8">1 HR</td><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#281c48;color:#ece1c6">60</td><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#281c48;color:#ece1c6">10</td><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#281c48;color:#ece1c6">BUFF推廣勳章(1HR)</td></tr>
+              <tr><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#231640;color:#fff4d8">2 HR</td><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#231640;color:#ece1c6">120</td><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#231640;color:#ece1c6">20</td><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#231640;color:#ece1c6">BUFF推廣勳章(3HR)</td></tr>
+              <tr><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#281c48;color:#fff4d8">3 HR</td><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#281c48;color:#d84a38;font-weight:bold">150</td><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#281c48;color:#d84a38;font-weight:bold">35</td><td style="border:1px solid rgba(217, 173, 70,0.18);padding:5px;background:#281c48;color:#ece1c6">BUFF推廣勳章(3HR)</td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:.78em;color:#ece1c6;margin-top:5px">※ 獎勵箱依據回報時數發放對應箱子。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 推文 & 直播規定（左右並排）══ -->
+    <hr style="border:0;border-top:1px solid rgba(217, 173, 70,0.55);margin:28px 0">
+    <p class="fp-heading">⚠️ 推文 & 直播規定</p>
+    <div class="promo-grid">
+      <div class="promo-warning" style="margin:0">
+        <strong style="color:#d84a38;font-size:1em;display:flex;align-items:center;gap:8px">⚠️ 限量推文 · 特別規定</strong>
+        <ul class="promo-ul" style="margin-top:10px">
+          <li><strong style="color:#fff4d8">帳號上限：</strong>每位玩家最多以 <span style="color:#d84a38;font-weight:bold">3 組帳號</span> 領取推文獎勵，超出部分一律不予發放。</li>
+          <li><strong style="color:#fff4d8">嚴禁洗取物資：</strong>利用多帳號重複領取獎勵者，視同違規，一律依規懲處。</li>
+          <li><strong style="color:#fff4d8">禁止借帳測試：</strong>推文期間無需借用他人手機或帳號進行測試，一旦查獲即執行懲處，不另行通知。</li>
+        </ul>
+      </div>
+      <div class="promo-box" style="margin:0">
+        <h3 class="promo-h3" style="color:#d84a38;border-left:4px solid #d84a38">📺 直播規章 (務必遵守)</h3>
+        <ul class="promo-ul">
+          <li><strong style="color:#fff4d8">直播平台：</strong>FB天堂私服社團、Youtube、Twitch。</li>
+          <li><strong style="color:#fff4d8">開播判定：</strong>需於螢幕喊話及輸入<strong style="color:#fff4d8">白字</strong>（ID+幾月幾日幾點幾分）。</li>
+          <li><strong style="color:#fff4d8">禁止掛網：</strong>直播禁止純掛網，超過 <span style="color:#d84a38;font-weight:bold">30 分鐘</span> 將取消資格。</li>
+          <li><strong style="color:#fff4d8">時數上限：</strong>每日最高獎勵時數為 <strong style="color:#fff4d8">3 小時</strong>（可分段，需備註）。</li>
+          <li><strong style="color:#fff4d8">限制說明：</strong>一帳號限申請一次，嚴禁假影片或相同 IP 重複領取。</li>
+          <li><strong style="color:#fff4d8">審核發放：</strong>每日 <span style="color:#c368f5;font-weight:bold">24:00</span> 統一審核。</li>
+          <li style="color:#d84a38;font-weight:bold">⚠️ 補件限制：逾時上傳，不予補件發放。</li>
+        </ul>
+        <div style="margin-top:10px;background:#2c1e52;padding:8px 12px;border-radius:4px;color:#d84a38;font-size:.88em;font-weight:bold">
+          ⛔ 違規懲處：使用非本人、重複影片或相同 IP 直播，一律【封鎖帳號】。
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer id="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="../assets/images/logo-circle.jpg" class="footer-logo-icon" alt="御赦天堂">
+          <div class="footer-brand-text"><span class="logo-text">御赦天堂</span></div>
+        </div>
+        <nav class="footer-links">
+          <a href="features-overview.html" class="footer-link"><span class="footer-link__icon">⚔</span>特色介紹</a><span class="footer-link-sep">·</span>
+          <a href="rules.html" class="footer-link"><span class="footer-link__icon">◆</span>遊戲規章</a><span class="footer-link-sep">·</span>
+          <a href="sponsor.html" class="footer-link"><span class="footer-link__icon">✤</span>贊助須知</a><span class="footer-link-sep">·</span>
+          <a href="disclaimer.html" class="footer-link"><span class="footer-link__icon">†</span>免責聲明</a><span class="footer-link-sep">·</span>
+          <a href="contact.html" class="footer-link"><span class="footer-link__icon">✉</span>聯絡我們</a>
+        </nav>
+      </div>
+      <div class="footer-copy"><div class="footer-copy__line"></div><p>© 2026 御赦天堂 · 本遊戲限 18 歲以上玩家參與 · 遊戲有成癮性，請節制遊玩 · 本站與 NC Soft 官方無任何關聯</p></div>
+    </div>
+        <div style="max-width:1080px;margin:0 auto;padding:12px 24px 0;display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <a href="https://lin.ee/UbLA1Dq" target="_blank" rel="noopener" style="color:var(--gold-dim);font-size:12px;letter-spacing:1.2px;font-weight:600;text-shadow:0 0 10px rgba(245, 213, 128,0.36);text-decoration:none;">阿柴美工 LINE @323rffot 美工找我~</a>
+        <a href="https://www.gamex123.com/lineage.html" target="_blank" rel="noopener" style="display:inline-flex;opacity:0.82;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.82'">
+          <img src="../assets/images/private-server-123.gif" alt="私服123" style="display:block;width:78px;height:auto;" loading="lazy">
+        </a>
+      </div>
+    </footer>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // 平滑滾動 + offset（避免被 sticky header 擋住）
+    document.querySelectorAll('.promo-toc__link').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          var top = target.getBoundingClientRect().top + window.pageYOffset - 130;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

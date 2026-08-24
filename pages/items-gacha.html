@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>神奇扭蛋 — 御赦天堂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700;900&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .jackpot-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:32px; }
+    .jackpot-card { background:linear-gradient(135deg,#281c48,#231640); border:1px solid rgba(217, 173, 70,0.4); border-radius:2px; padding:16px; text-align:center; }
+    .jackpot-card__name { font-family:'Noto Serif TC',serif; font-size:0.9rem; font-weight:700; color:#f7cf4a; margin-bottom:6px; }
+    .jackpot-card__icon { font-size:2rem; margin-bottom:10px; display:block; }
+    .jackpot-card__sub { font-size:0.78rem; color:#c6b487; letter-spacing:0.06em; }
+
+    .reward-table { width:100%; border-collapse:collapse; font-size:0.82rem; }
+    .reward-table th { background: linear-gradient(90deg, rgba(217, 173, 70,0.20) 0%, rgba(217, 173, 70,0.08) 100%); color:#f7cf4a; font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.12em; padding:10px 16px; border:1px solid #c9962e; text-align:left; }
+    .reward-table td { background:#281c48; padding:10px 16px; border:1px solid rgba(217, 173, 70,.22); color:#ece1c6; }
+    .reward-table tr:nth-child(even) td { background:#231640; }
+    .reward-table tr:hover td { background:#332456; }
+    .reward-table td:first-child { color:#fff4d8; }
+    .reward-rate { color:#f7cf4a; font-family:'Cinzel',serif; font-weight:700; font-size:0.9rem; }
+
+    .reward-table td.rate-high { color:#f0c33c; }
+    .reward-table td.rate-mid  { color:#2f7f4f; }
+    .reward-table td.rate-low  { color:#67add5; }
+    .reward-table td.item-rare { color:#a874c8; font-weight:700; }
+    .reward-table td.item-epic { color:#f0c33c; font-weight:700; }
+    .reward-table td.item-blue { color:#67add5; font-weight:700; }
+
+    .notice-box { background:#231640; border:1px solid #c9962e; border-radius:2px; padding:16px 20px; margin-top:28px; font-size:0.85rem; color:#ece1c6; line-height:1.8; }
+    .notice-box strong { color:#fff4d8; }
+
+    .token-row { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:32px; }
+    .token-badge { background:linear-gradient(135deg,#281c48,#231640); border:1px solid rgba(217, 173, 70,0.35); border-radius:2px; padding:12px 20px; }
+    .token-badge__label { font-size:0.7rem; color:#c6b487; display:block; margin-bottom:4px; letter-spacing:0.08em; }
+    .token-badge__val { font-family:'Cinzel',serif; font-size:1.05rem; font-weight:700; color:#f7cf4a; }
+  </style>
+<link rel="icon" type="image/jpeg" href="../assets/images/logo-circle.jpg">
+</head>
+<body>
+  <div class="float-sidebar float-sidebar--left">
+    <a href="sponsor.html" class="float-btn float-btn--sponsor">
+      <span class="float-btn-bg" style="background-image:url('../assets/images/float-sponsor.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg></span>
+      <span class="float-label">贊助</span>
+    </a>
+    <a href="download.html" class="float-btn float-btn--download">
+      <span class="float-btn-bg" style="background-image:url('../assets/images/float-download.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></span>
+      <span class="float-label">下載</span>
+    </a>
+  </div>
+  <div class="float-sidebar float-sidebar--right">
+    <a href="https://line.me/ti/g2/zhNz5BNZeWapB9HD1bZQGAyxI74_OVx8PPttyQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="float-btn float-btn--line">
+      <span class="float-btn-bg" style="background-image:url('../assets/images/float-community.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></span>
+      <span class="float-label">社群</span>
+    </a>
+    <a href="https://lin.ee/PKHUd99" target="_blank" class="float-btn float-btn--line-cs">
+      <span class="float-btn-bg" style="background-image:url('../assets/images/float-service.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.82.49 3.53 1.34 5L2 22l5.08-1.31A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-2h2v2zm2.07-5.75l-.9.92C11.45 11.9 11 12.5 11 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H6c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg></span>
+      <span class="float-label">客服</span>
+    </a>
+  </div>
+  <header id="site-header">
+    <div class="header-inner container">
+      <a href="../index.html" class="site-logo">
+        <img src="../assets/images/logo-circle.jpg" class="logo-icon" alt="御赦天堂">
+        <span class="logo-text">御赦天堂</span></a>
+      <nav class="site-nav">
+        <a href="download.html" class="nav-btn nav-btn--primary">遊戲下載</a>
+        <a href="news.html" class="nav-btn">最新公告</a><a href="events.html" class="nav-btn">活動資訊</a><a href="features-overview.html" class="nav-btn">遊戲特色</a><a href="version.html" class="nav-btn">版本設定</a><a href="items-overview.html" class="nav-btn">裝備道具</a><a href="boss-guide.html" class="nav-btn">BOSS介紹</a>
+        <div class="nav-dropdown"><button class="nav-dropdown__toggle">服務專區</button><div class="nav-dropdown__menu"><a href="disclaimer.html">免責聲明</a><a href="rules.html">遊戲規章</a><a href="class-change.html">轉職介紹</a></div></div><a href="promote.html" class="nav-btn">推文推廣</a><span class="nav-sponsor-wrap"><a href="sponsor.html" class="nav-btn">贊助說明</a><span class="nav-sponsor-coin">🪙</span><span class="nav-sponsor-coin">💰</span><span class="nav-sponsor-coin">🪙</span><span class="nav-sponsor-sparkle">✦</span><span class="nav-sponsor-sparkle">✦</span><span class="nav-sponsor-sparkle">✧</span><span class="nav-sponsor-sparkle">✦</span></span><button class="search-toggle" aria-label="搜尋">◈ 搜尋</button>
+      </nav>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="開啟選單"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="download.html">遊戲下載</a><a href="news.html">最新公告</a>
+      <a href="events.html">活動資訊</a><a href="features-overview.html">遊戲特色</a><a href="version.html">版本設定</a><a href="items-overview.html">裝備道具</a><a href="boss-guide.html">BOSS介紹</a><span class="mobile-group-label">▸ 服務專區</span><a href="disclaimer.html" class="mobile-sub">免責聲明</a><a href="rules.html" class="mobile-sub">遊戲規章</a><a href="class-change.html" class="mobile-sub">轉職介紹</a><a href="promote.html">推文推廣</a><a href="sponsor.html">贊助說明</a>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <p class="page-hero__eyebrow">YU SHE · LINEAGE — GACHA SYSTEM</p>
+    <h1 class="page-hero__title">神奇<span>扭蛋</span></h1>
+    <p class="page-hero__sub">限時扭蛋池，機率公示與保底機制說明</p>
+  </div>
+
+  <main class="fp-wrap">
+
+    <p class="fp-heading">🎰 系統說明</p>
+    <div class="fp-intro">
+      <strong>神奇扭蛋</strong>是本服限時開放的幸運扭蛋機制，投入指定代幣即可隨機獲得豐富道具，更有機會摸中高稀有度特殊大獎。<br>
+      所有獎項機率完全公示，無隱藏機率，請理性消費、快樂遊戲。
+    </div>
+
+    <div class="token-row">
+      <div class="token-badge"><span class="token-badge__label">取得方式</span><span class="token-badge__val">奇物商 / 推廣商人</span></div>
+      <div class="token-badge"><span class="token-badge__label">保底機制</span><span class="token-badge__val">無（機率隨機）</span></div>
+      <div class="token-badge"><span class="token-badge__label">特殊大獎</span><span class="token-badge__val">神奇徽章 等4項</span></div>
+    </div>
+
+    <p class="fp-heading">🏆 稀有特殊大獎</p>
+    <div class="jackpot-grid">
+      <div class="jackpot-card">
+        <span class="jackpot-card__icon">🎖️</span>
+        <div class="jackpot-card__name">神奇徽章</div>
+        <div class="jackpot-card__sub">時效 3 天</div>
+      </div>
+      <div class="jackpot-card">
+        <span class="jackpot-card__icon">⚔️</span>
+        <div class="jackpot-card__name">PVP 額外傷害</div>
+        <div class="jackpot-card__sub">+8</div>
+      </div>
+      <div class="jackpot-card">
+        <span class="jackpot-card__icon">🛡️</span>
+        <div class="jackpot-card__name">PVP 額外減免</div>
+        <div class="jackpot-card__sub">+4</div>
+      </div>
+      <div class="jackpot-card">
+        <span class="jackpot-card__icon">🔮</span>
+        <div class="jackpot-card__name">魔攻</div>
+        <div class="jackpot-card__sub">+4</div>
+      </div>
+    </div>
+
+    <p class="fp-heading">📋 詳細內容物清單</p>
+    <table class="reward-table">
+      <thead>
+        <tr>
+          <th>道具名稱</th>
+          <th>數量</th>
+          <th>機率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>穿雲箭（血盟／組隊）</td><td>× 2</td><td><span class="reward-rate">9.3%</span></td></tr>
+        <tr><td>變形石／娃娃召喚石</td><td>× 500</td><td><span class="reward-rate">8.9%</span></td></tr>
+        <tr><td>魔法寶石／精靈玉</td><td>× 300</td><td><span class="reward-rate">8.5%</span></td></tr>
+        <tr><td>強化戰鬥卷軸</td><td>× 2</td><td><span class="reward-rate">8.0%</span></td></tr>
+        <tr><td>奧里哈魯根箭</td><td>× 4,000</td><td><span class="reward-rate">8.0%</span></td></tr>
+        <tr><td>復活卷軸</td><td>× 10</td><td><span class="reward-rate">6.0%</span></td></tr>
+        <tr><td>空的魔法卷軸（等級 4）</td><td>40 ～ 100</td><td><span class="reward-rate">5.0%</span></td></tr>
+        <tr><td>空的魔法卷軸（等級 5）</td><td>40 ～ 100</td><td><span class="reward-rate">4.0%</span></td></tr>
+        <tr><td>（玩家）EXP 護身符</td><td>× 1</td><td><span class="reward-rate">4.0%</span></td></tr>
+        <tr><td class="item-rare">🎖️ 神奇徽章（3 天）</td><td>× 1</td><td><span class="reward-rate">1.0%</span></td></tr>
+        <tr><td>肉</td><td>× 50</td><td><span class="reward-rate">1.2%</span></td></tr>
+        <tr><td>純白的萬能藥</td><td>× 1</td><td><span class="reward-rate">1.0%</span></td></tr>
+        <tr><td>武器／防具／飾品 粉末</td><td>× 10</td><td><span class="reward-rate">1.0%</span></td></tr>
+        <tr><td class="item-blue">稀有 變身／娃娃卡寶箱</td><td>× 1</td><td><span class="reward-rate">1.0%</span></td></tr>
+        <tr><td class="item-epic">稀有製作秘笈</td><td>× 1</td><td><span class="reward-rate">0.9%</span></td></tr>
+        <tr><td>詛咒的 防爆卷軸</td><td>× 1</td><td><span class="reward-rate">0.9%</span></td></tr>
+        <tr><td>一般的 防爆卷軸</td><td>× 1</td><td><span class="reward-rate">0.5%</span></td></tr>
+        <tr><td>祝福的 防爆卷軸</td><td>× 1</td><td><span class="reward-rate">0.1%</span></td></tr>
+        <tr><td>各式萬能藥</td><td>× 1</td><td><span class="reward-rate">0.1%</span></td></tr>
+        <tr><td>高技碎片箱（自選）</td><td>× 1</td><td><span class="reward-rate">0.1%</span></td></tr>
+        <tr><td class="item-blue">英雄 變身／娃娃卡寶箱</td><td>× 1</td><td><span class="reward-rate">0.1%</span></td></tr>
+        <tr><td class="item-epic">英雄製作秘笈</td><td>× 1</td><td><span class="reward-rate">0.1%</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="notice-box">
+      <strong>📌 注意事項</strong>
+      <ul style="margin:8px 0 0 18px; line-height:1.9;">
+        <li>機率為隨機抽取，<strong>無保底機制</strong>，請依個人預算理性消費。</li>
+        <li>特殊大獎（神奇徽章、PVP 傷害、PVP 減免、魔攻）機率極低，屬稀有獎勵。</li>
+        <li>神奇扭蛋可於奇物商或推廣商人處購買。</li>
+      </ul>
+    </div>
+
+    <!-- 上下頁導覽 -->
+    <div class="fp-pager">
+      <a href="items-vip.html" class="fp-pager__btn">
+        <span class="fp-pager__arrow">←</span>
+        <div><span class="fp-pager__dir">PREV</span><span class="fp-pager__name">貴賓通行證</span></div>
+      </a>
+      <div class="fp-pager__center"><a href="items-overview.html" class="fp-pager__back">▲ 返回裝備道具列表</a></div>
+      <a href="items-candle.html" class="fp-pager__btn fp-pager__btn--next">
+        <div><span class="fp-pager__dir">NEXT</span><span class="fp-pager__name">回憶蠟燭與洗血</span></div>
+        <span class="fp-pager__arrow">→</span>
+      </a>
+    </div>
+
+  </main>
+
+  <footer id="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="../assets/images/logo-circle.jpg" class="footer-logo-icon" alt="御赦天堂">
+          <div class="footer-brand-text"><span class="logo-text">御赦天堂</span></div>
+        </div>
+        <nav class="footer-links">
+          <a href="features-overview.html" class="footer-link"><span class="footer-link__icon">⚔</span>特色介紹</a><span class="footer-link-sep">·</span>
+          <a href="rules.html" class="footer-link"><span class="footer-link__icon">◆</span>遊戲規章</a><span class="footer-link-sep">·</span>
+          <a href="sponsor.html" class="footer-link"><span class="footer-link__icon">✤</span>贊助須知</a><span class="footer-link-sep">·</span>
+          <a href="disclaimer.html" class="footer-link"><span class="footer-link__icon">†</span>免責聲明</a><span class="footer-link-sep">·</span>
+          <a href="contact.html" class="footer-link"><span class="footer-link__icon">✉</span>聯絡我們</a>
+        </nav>
+      </div>
+      <div class="footer-copy"><div class="footer-copy__line"></div><p>© 2026 御赦天堂 · 本遊戲限 18 歲以上玩家參與 · 遊戲有成癮性，請節制遊玩 · 本站與 NC Soft 官方無任何關聯</p></div>
+    </div>
+        <div style="max-width:1080px;margin:0 auto;padding:12px 24px 0;display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <a href="https://lin.ee/UbLA1Dq" target="_blank" rel="noopener" style="color:var(--gold-dim);font-size:12px;letter-spacing:1.2px;font-weight:600;text-shadow:0 0 10px rgba(245, 213, 128,0.36);text-decoration:none;">阿柴美工 LINE @323rffot 美工找我~</a>
+        <a href="https://www.gamex123.com/lineage.html" target="_blank" rel="noopener" style="display:inline-flex;opacity:0.82;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.82'">
+          <img src="../assets/images/private-server-123.gif" alt="私服123" style="display:block;width:78px;height:auto;" loading="lazy">
+        </a>
+      </div>
+    </footer>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

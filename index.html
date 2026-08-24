@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="御赦天堂私服 — 御赦臨世，赦令天下">
+  <title>御赦天堂 — 御赦臨世　赦令天下</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700;900&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style id="ts-immersive">
+  :root{
+    --ts-sky1:#1a1030;--ts-sky2:#231640;--ts-sky3:#2c1e52;
+    --ts-g1:#ffdd6b;--ts-g2:#f7cf4a;--ts-g3:#f0c33c;--ts-gd:#f7cf4a;--ts-imp:#f0c33c;
+    --ts-verm:#d84a38;--ts-jade:#a835e6;
+    --ts-ink:#ece1c6;--ts-inkhi:#fff4d8;--ts-inks:#c6b487;--ts-line:rgba(217, 173, 70,.2);
+    --ts-serif:'Noto Serif TC',serif;--ts-metal:linear-gradient(176deg,#332456 6%,#f7cf4a 34%,#f0c33c 60%,#c9962e 100%);
+  }
+  /* Hero 飄飄欲仙光束（保留 KV 圖 hero-bg） */
+  #hero .ts-rays{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.32;
+    background:repeating-conic-gradient(from 0deg at 50% 8%,rgba(34, 26, 58,.5) 0deg 3deg,rgba(34, 26, 58,0) 3deg 12deg);
+    -webkit-mask-image:radial-gradient(58% 64% at 50% 8%,#000000,transparent 72%);mask-image:radial-gradient(58% 64% at 50% 8%,#000000,transparent 72%);
+    animation:tsRay 46s linear infinite}
+  @keyframes tsRay{to{transform:rotate(8deg)}}
+  #hero .hero-content{z-index:3}
+  /* 狀態列改亮玻璃 */
+  .hero-statusbar{background:linear-gradient(180deg,rgba(30, 24, 54,.94),rgba(26, 20, 58,.94))!important;border-top:1px solid var(--ts-line)!important;border-bottom:1px solid var(--ts-line)!important}
+  .hero-statusbar .statusbar-key{color:var(--ts-inks)!important}
+  .hero-statusbar .statusbar-val{color:var(--ts-inkhi)!important}
+  .hero-statusbar .statusbar-val.gold{color:var(--ts-gd)!important}
+  .hero-statusbar .statusbar-val.red{color:var(--ts-verm)!important}
+  .hero-statusbar .statusbar-online{color:var(--ts-jade)!important}
+  .hero-statusbar .statusbar-sep,.hero-statusbar .statusbar-exp-div{background:var(--ts-line)!important}
+  /* 沉浸式亮色區塊 + 飄雲 */
+  .ts-sec{position:relative;background:linear-gradient(180deg,var(--ts-sky1),var(--ts-sky2));padding:clamp(52px,8vw,96px) 0;overflow:hidden}
+  .ts-sec--alt{background:linear-gradient(180deg,var(--ts-sky2),var(--ts-sky3))}
+  .ts-sec::before,.ts-sec::after{content:"";position:absolute;border-radius:50%;pointer-events:none;filter:blur(22px);opacity:.55;background:radial-gradient(circle,rgba(255,255,255,.92),transparent 70%);z-index:0}
+  .ts-sec::before{width:340px;height:150px;top:7%;left:-6%;animation:tsDrift 28s ease-in-out infinite alternate}
+  .ts-sec::after{width:280px;height:130px;bottom:9%;right:-5%;animation:tsDrift 34s ease-in-out infinite alternate-reverse}
+  @keyframes tsDrift{from{transform:translateX(0)}to{transform:translateX(58px)}}
+  .ts-wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+  .ts-kick{font-size:.7rem;letter-spacing:.36em;text-transform:uppercase;color:var(--ts-imp);font-weight:800;display:flex;align-items:center;justify-content:center;gap:12px}
+  .ts-kick::before,.ts-kick::after{content:"";width:28px;height:1px;background:var(--ts-verm)}
+  .ts-title{font-family:var(--ts-serif);font-weight:900;font-size:clamp(1.6rem,4.5vw,2.5rem);letter-spacing:.1em;text-align:center;margin:12px 0 6px;color:var(--ts-gd)}
+  .ts-sub{text-align:center;color:var(--ts-inks);font-size:.95rem;margin-bottom:34px}
+  .ts-reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .ts-reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.ts-reveal{opacity:1;transform:none}}
+  /* 十二天門 · Bento 磁磚牆（御赦紫金） */
+  .yu-bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:118px;gap:12px;grid-auto-flow:dense}
+  .yu-tile{position:relative;overflow:hidden;border:1px solid rgba(240,195,60,.30);border-radius:4px;
+    background:linear-gradient(155deg,#2a1e50,#1d1338);display:flex;flex-direction:column;justify-content:flex-end;
+    padding:15px 16px;text-decoration:none;color:var(--ts-inkhi);
+    box-shadow:0 10px 24px -18px rgba(0,0,0,.6);transition:transform .25s,border-color .25s,box-shadow .25s}
+  .yu-tile:hover{transform:translateY(-4px);border-color:#ffdd6b;box-shadow:0 16px 32px -14px rgba(168,53,230,.45)}
+  .yu-tile::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 70% at 50% 15%,rgba(168,53,230,.24),transparent 70%);opacity:0;transition:opacity .25s}
+  .yu-tile:hover::before{opacity:1}
+  .yu-tile::after{content:"";position:absolute;top:9px;left:9px;width:18px;height:18px;border-top:2px solid rgba(255,221,107,.5);border-left:2px solid rgba(255,221,107,.5);opacity:.55;transition:opacity .25s}
+  .yu-tile:hover::after{opacity:1}
+  .yu-tile__no{position:absolute;top:6px;right:13px;font-family:'Cinzel',serif;font-weight:700;font-size:1.5rem;color:rgba(255,221,107,.20);letter-spacing:.04em;line-height:1}
+  .yu-tile__wm{position:absolute;bottom:15px;right:14px;font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.2em;color:rgba(195,104,245,.55)}
+  .yu-tile__ico{font-family:var(--ts-serif);font-size:1.85rem;line-height:1;color:#ffdd6b;margin-bottom:7px;position:relative}
+  .yu-tile__name{font-family:var(--ts-serif);font-weight:900;font-size:1.02rem;letter-spacing:.05em;color:#fff4d8;position:relative}
+  .yu-tile__tag{position:absolute;top:10px;left:12px;font-size:.54rem;font-weight:800;background:#d84a38;color:#fff;padding:2px 7px;border-radius:3px;letter-spacing:.1em;z-index:2}
+  .yu-tile--xl{grid-column:span 2;grid-row:span 2;
+    background:linear-gradient(160deg,rgba(36,28,64,.5),rgba(18,13,34,.92)),url('assets/images/hero-banner.jpg') center/cover}
+  .yu-tile--xl .yu-tile__ico{font-size:3.4rem;margin-bottom:12px}
+  .yu-tile--xl .yu-tile__name{font-size:1.7rem}
+  .yu-tile--xl .yu-tile__no{font-size:3rem}
+  .yu-tile--xl .yu-tile__wm{font-size:.72rem}
+  .yu-tile--wide{grid-column:span 2}
+  .yu-tile.hot .yu-tile__name{color:#ffdd6b}
+  .yu-tile.hot::after{border-top-color:#d84a38;border-left-color:#d84a38}
+  @media(max-width:900px){.yu-bento{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:560px){.yu-bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:104px}.yu-tile--xl{grid-row:span 2}.yu-tile--wide{grid-column:span 2}}
+  /* 活動公告 */
+  .ts-notice{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .ts-nrow{display:flex;gap:16px;align-items:center;background:linear-gradient(160deg,#332456,#281c48);border:1px solid var(--ts-line);border-left:4px solid var(--ts-g3);border-radius:4px;padding:15px 20px;box-shadow:0 8px 20px -18px rgba(0, 0, 0,.5);transition:transform .2s;text-decoration:none}
+  .ts-nrow:hover{transform:translateX(4px)}
+  .ts-nrow.pin{border-left-color:var(--ts-verm)}
+  .ts-ndate{font-family:var(--ts-serif);font-weight:900;color:var(--ts-gd);font-size:.9rem;white-space:nowrap;text-align:center;min-width:52px}
+  .ts-ndate small{display:block;font-size:.6rem;color:var(--ts-inks);letter-spacing:.1em}
+  .ts-nbody{flex:1;min-width:0}
+  .ts-nt{font-family:var(--ts-serif);font-weight:900;color:var(--ts-inkhi);font-size:1rem}
+  .ts-nd{font-size:.82rem;color:var(--ts-inks);margin-top:2px;line-height:1.5}
+  .ts-ntag{font-size:.66rem;font-weight:800;padding:3px 9px;border-radius:100px;white-space:nowrap}
+  .ts-ntag.hot{background:rgba(216, 74, 56,.14);color:var(--ts-verm)}
+  .ts-ntag.new{background:rgba(245, 213, 128,.2);color:var(--ts-gd)}
+  .ts-ntag.day{background:rgba(173, 120, 230,.14);color:var(--ts-jade)}
+  .ts-more{display:block;text-align:center;margin-top:26px;font-family:var(--ts-serif);font-weight:800;color:var(--ts-gd);text-decoration:none;letter-spacing:.1em}
+  .ts-more:hover{color:var(--ts-verm)}
+  /* 職業介紹 grid */
+  .ts-class{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  @media(max-width:900px){.ts-class{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:560px){.ts-class{grid-template-columns:repeat(2,1fr)}}
+  .ts-cc{position:relative;border:1px solid var(--ts-line);border-radius:4px;overflow:hidden;box-shadow:0 10px 24px -18px rgba(0, 0, 0,.55);transition:transform .2s,box-shadow .2s}
+  .ts-cc:hover{transform:translateY(-5px);box-shadow:0 16px 32px -16px rgba(0, 0, 0,.55)}
+  .ts-cc__fig{aspect-ratio:3/4;background-size:cover;background-position:top center;position:relative}
+  .ts-cc__fig::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(236, 196, 99,0) 38%,rgba(236, 196, 99,.78))}
+  .ts-cc__num{position:absolute;top:10px;left:12px;font-family:var(--ts-serif);font-size:.64rem;letter-spacing:.14em;color:#ffffff;opacity:.85;z-index:2}
+  .ts-cc__body{position:absolute;bottom:0;left:0;right:0;padding:14px 12px 16px;z-index:2;text-align:center}
+  .ts-cc__name{font-family:var(--ts-serif);font-weight:900;font-size:1.12rem;color:#ffdd6b;letter-spacing:.08em}
+  .ts-cc__en{font-size:.58rem;letter-spacing:.2em;color:#f0c33c;margin-top:2px}
+  .ts-cc__role{font-size:.72rem;color:#231640;margin-top:6px;line-height:1.5}
+  /* ── 頁首/頁尾 融入聖光金白（僅首頁）── */
+  #site-header{background:rgba(30, 24, 54,.93)!important;
+    border-image:linear-gradient(to right,var(--ts-verm),var(--ts-g3),var(--ts-verm)) 1!important;
+    box-shadow:0 2px 0 rgba(217, 173, 70,.35),0 4px 24px rgba(0, 0, 0,.12)!important}
+  .site-logo .logo-text{color:var(--ts-gd)!important;text-shadow:none!important}
+  #site-header .logo-icon{border-color:rgba(217, 173, 70,.3)!important}
+  .site-nav .nav-btn,.nav-btn{color:var(--ts-ink)!important}
+  .nav-btn:hover{color:var(--ts-verm)!important;background:rgba(245, 213, 128,.16)!important}
+  .nav-btn--primary{background:var(--ts-metal)!important;color:#ece1c6!important;border-color:transparent!important}
+  .nav-btn--primary:hover{filter:brightness(1.06)}
+  .search-toggle{color:var(--ts-gd)!important}
+  .search-toggle:hover{color:var(--ts-verm)!important;border-color:var(--ts-g3)!important;background:rgba(245, 213, 128,.16)!important;text-shadow:none!important}
+  .nav-dropdown__toggle{color:var(--ts-ink)!important}
+  .nav-dropdown__toggle.is-active,.nav-dropdown__toggle:hover{color:var(--ts-verm)!important}
+  .nav-dropdown__menu{background:rgba(30, 24, 54,.98)!important;border-color:var(--ts-line)!important}
+  .nav-dropdown__menu a{color:var(--ts-ink)!important}
+  .nav-dropdown__menu a:hover{color:var(--ts-verm)!important;background:rgba(245, 213, 128,.16)!important}
+  .nav-sponsor-wrap .nav-btn{color:var(--ts-verm)!important}
+  .mobile-nav{background:rgba(30, 24, 54,.98)!important}
+  .mobile-nav a,.mobile-nav .mobile-sub{color:var(--ts-ink)!important}
+  .mobile-nav a:hover,.mobile-nav .mobile-sub:hover{color:var(--ts-verm)!important;background:rgba(245, 213, 128,.16)!important}
+  .mobile-nav .mobile-group-label{color:var(--ts-gd)!important}
+  .nav-mobile-toggle span{background:var(--ts-gd)!important}
+  #site-footer{background:linear-gradient(180deg,var(--ts-sky3),var(--ts-sky2))!important;
+    border-image:linear-gradient(to right,var(--ts-verm),var(--ts-g3),var(--ts-verm)) 1!important}
+  #site-footer .logo-text{color:var(--ts-gd)!important;text-shadow:none!important}
+  #site-footer .footer-logo-icon{border-color:rgba(217, 173, 70,.3)!important}
+  .footer-top{border-bottom-color:var(--ts-line)!important}
+  .footer-link{color:var(--ts-ink)!important;border-color:var(--ts-line)!important;background:rgba(30, 24, 54,.6)!important}
+  .footer-link:hover{color:var(--ts-verm)!important;border-color:var(--ts-g3)!important;background:rgba(245, 213, 128,.16)!important}
+  .footer-link__icon{color:var(--ts-verm)!important}
+  .footer-link:hover .footer-link__icon{color:var(--ts-gd)!important}
+  .footer-link-sep{color:var(--ts-line)!important}
+  .footer-copy__line{background:linear-gradient(to right,transparent,var(--ts-g3),transparent)!important}
+  .footer-copy p{color:var(--ts-inks)!important}
+  </style>
+<link rel="icon" type="image/jpeg" href="assets/images/logo-circle.jpg">
+</head>
+<body>
+
+  <!-- ═══════════════════════ HEADER ═══════════════════════ -->
+  <header id="site-header">
+    <div class="header-inner container">
+      <a href="index.html" class="site-logo">
+        <img src="assets/images/logo-circle.jpg" class="logo-icon" alt="御赦天堂">
+        <span class="logo-text">御赦天堂</span></a>
+      <nav class="site-nav">
+        <a href="pages/download.html" class="nav-btn nav-btn--primary">遊戲下載</a>
+        <a href="pages/news.html" class="nav-btn">最新公告</a>
+        <a href="pages/events.html" class="nav-btn">活動資訊</a><a href="pages/features-overview.html" class="nav-btn">遊戲特色</a><a href="pages/version.html" class="nav-btn">版本設定</a><a href="pages/items-overview.html" class="nav-btn">裝備道具</a><a href="pages/boss-guide.html" class="nav-btn">BOSS介紹</a>
+        <div class="nav-dropdown"><button class="nav-dropdown__toggle">服務專區</button><div class="nav-dropdown__menu"><a href="pages/disclaimer.html">免責聲明</a><a href="pages/rules.html">遊戲規章</a><a href="pages/class-change.html">轉職介紹</a></div></div>        <a href="pages/promote.html" class="nav-btn">推文推廣</a><span class="nav-sponsor-wrap"><a href="pages/sponsor.html" class="nav-btn">贊助說明</a><span class="nav-sponsor-coin">🪙</span><span class="nav-sponsor-coin">💰</span><span class="nav-sponsor-coin">🪙</span><span class="nav-sponsor-sparkle">✦</span><span class="nav-sponsor-sparkle">✦</span><span class="nav-sponsor-sparkle">✧</span><span class="nav-sponsor-sparkle">✦</span></span><button class="search-toggle" aria-label="搜尋">◈ 搜尋</button>
+      </nav>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="開啟選單">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="pages/download.html">遊戲下載</a>
+      <a href="pages/news.html">最新公告</a>
+      <a href="pages/events.html">活動資訊</a><a href="pages/features-overview.html">遊戲特色</a><a href="pages/version.html">版本設定</a><a href="pages/items-overview.html">裝備道具</a><a href="pages/boss-guide.html">BOSS介紹</a>
+      <span class="mobile-group-label">▸ 服務專區</span><a href="pages/disclaimer.html" class="mobile-sub">免責聲明</a><a href="pages/rules.html" class="mobile-sub">遊戲規章</a><a href="pages/class-change.html" class="mobile-sub">轉職介紹</a>      <a href="pages/promote.html">推文推廣</a><a href="pages/sponsor.html">贊助說明</a>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════ FLOATING SIDEBAR ═══════════════════════ -->
+  <div class="float-sidebar float-sidebar--left">
+    <a href="pages/sponsor.html" class="float-btn float-btn--sponsor">
+      <span class="float-btn-bg" style="background-image:url('assets/images/float-sponsor.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg></span>
+      <span class="float-label">贊助</span>
+    </a>
+    <a href="pages/download.html" class="float-btn float-btn--download">
+      <span class="float-btn-bg" style="background-image:url('assets/images/float-download.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></span>
+      <span class="float-label">下載</span>
+    </a>
+  </div>
+  <div class="float-sidebar float-sidebar--right">
+    <a href="https://line.me/ti/g2/zhNz5BNZeWapB9HD1bZQGAyxI74_OVx8PPttyQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="float-btn float-btn--line">
+      <span class="float-btn-bg" style="background-image:url('assets/images/float-community.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></span>
+      <span class="float-label">社群</span>
+    </a>
+    <a href="https://lin.ee/PKHUd99" target="_blank" class="float-btn float-btn--line-cs">
+      <span class="float-btn-bg" style="background-image:url('assets/images/float-service.jpg')"></span>
+      <span class="float-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.82.49 3.53 1.34 5L2 22l5.08-1.31A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-2h2v2zm2.07-5.75l-.9.92C11.45 11.9 11 12.5 11 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H6c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg></span>
+      <span class="float-label">客服</span>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="ts-rays"></div>
+    <canvas id="hero-particles"></canvas>
+
+    <div class="hero-content container">
+
+      <!-- 左側主文字區 -->
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow__line"></span>
+          <span class="hero-eyebrow__text">LINEAGE PRIVATE SERVER · 3.81</span>
+          <span class="hero-eyebrow__line"></span>
+        </div>
+
+        <h1 class="hero-title">御赦天堂</h1>
+
+        <p class="hero-tagline">
+          <span class="tagline-cn">御赦臨世</span>
+          <span class="tagline-sep">✦</span>
+          <span class="tagline-cn">赦令天下</span>
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- 石碑浮雕伺服器狀態列 -->
+  <div class="hero-statusbar">
+    <div class="statusbar-online">
+      <span class="statusbar-dot"></span>
+      <span>線上運營中</span>
+    </div>
+    <div class="statusbar-cells">
+
+      <div class="statusbar-cell">
+        <div class="statusbar-key">遊戲版本</div>
+        <div class="statusbar-val">3.81</div>
+      </div>
+      <div class="statusbar-sep"></div>
+
+      <!-- 經驗倍率：分手動/內掛兩欄 -->
+      <div class="statusbar-cell statusbar-cell--exp">
+        <div class="statusbar-key">經驗倍率</div>
+        <div class="statusbar-exp">
+          <div class="statusbar-exp-item">
+            <span class="statusbar-val gold">×3</span>
+            <span class="statusbar-exp-label">手動</span>
+          </div>
+          <div class="statusbar-exp-div"></div>
+          <div class="statusbar-exp-item">
+            <span class="statusbar-val">×1</span>
+            <span class="statusbar-exp-label">內掛</span>
+          </div>
+        </div>
+      </div>
+      <div class="statusbar-sep"></div>
+
+      <div class="statusbar-cell">
+        <div class="statusbar-key">掉落倍率</div>
+        <div class="statusbar-val">× 1</div>
+      </div>
+      <div class="statusbar-sep"></div>
+
+      <div class="statusbar-cell">
+        <div class="statusbar-key">金幣倍率</div>
+        <div class="statusbar-val">× 1</div>
+      </div>
+      <div class="statusbar-sep"></div>
+
+      <div class="statusbar-cell">
+        <div class="statusbar-key">多開限制</div>
+        <div class="statusbar-val">IP 限 3</div>
+      </div>
+      <div class="statusbar-sep"></div>
+
+      <div class="statusbar-cell">
+        <div class="statusbar-key">開放時間</div>
+        <div class="statusbar-val red">24H 全天</div>
+      </div>
+      <div class="statusbar-sep"></div>
+
+      <div class="statusbar-cell">
+        <div class="statusbar-key">累計瀏覽</div>
+        <div class="statusbar-val gold" id="visitCount">1,499</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ EVENT CAROUSEL ═══════════════════════ -->
+  <!-- ═══════════════════════ 十二天門 · 格狀選單 ═══════════════════════ -->
+  <section class="ts-sec">
+    <div class="ts-wrap">
+      <div class="ts-reveal">
+        <div class="ts-kick">Enter · 天境入口</div>
+        <h2 class="ts-title">十二天門</h2>
+        <p class="ts-sub">選單化為格狀天門，一眼直達</p>
+      </div>
+      <div class="yu-bento ts-reveal">
+        <a class="yu-tile yu-tile--xl hot" href="pages/download.html"><span class="yu-tile__tag">HOT</span><span class="yu-tile__no">01</span><span class="yu-tile__ico">⚔</span><span class="yu-tile__name">遊戲下載</span><span class="yu-tile__wm">DOWNLOAD</span></a>
+        <a class="yu-tile yu-tile--wide hot" href="pages/events.html"><span class="yu-tile__tag">HOT</span><span class="yu-tile__no">02</span><span class="yu-tile__ico">✦</span><span class="yu-tile__name">活動資訊</span><span class="yu-tile__wm">EVENTS</span></a>
+        <a class="yu-tile" href="pages/news.html"><span class="yu-tile__no">03</span><span class="yu-tile__ico">◈</span><span class="yu-tile__name">最新公告</span><span class="yu-tile__wm">NEWS</span></a>
+        <a class="yu-tile" href="pages/features-overview.html"><span class="yu-tile__no">04</span><span class="yu-tile__ico">❖</span><span class="yu-tile__name">遊戲特色</span><span class="yu-tile__wm">FEATURES</span></a>
+        <a class="yu-tile yu-tile--wide" href="pages/boss-guide.html"><span class="yu-tile__no">05</span><span class="yu-tile__ico">☠</span><span class="yu-tile__name">BOSS 圖鑑</span><span class="yu-tile__wm">BOSS</span></a>
+        <a class="yu-tile" href="pages/version.html"><span class="yu-tile__no">06</span><span class="yu-tile__ico">☰</span><span class="yu-tile__name">版本設定</span><span class="yu-tile__wm">VERSION</span></a>
+        <a class="yu-tile" href="pages/items-overview.html"><span class="yu-tile__no">07</span><span class="yu-tile__ico">⚑</span><span class="yu-tile__name">裝備道具</span><span class="yu-tile__wm">ITEMS</span></a>
+        <a class="yu-tile" href="pages/sponsor.html"><span class="yu-tile__no">08</span><span class="yu-tile__ico">✤</span><span class="yu-tile__name">贊助說明</span><span class="yu-tile__wm">SPONSOR</span></a>
+        <a class="yu-tile" href="pages/promote.html"><span class="yu-tile__no">09</span><span class="yu-tile__ico">✉</span><span class="yu-tile__name">推文推廣</span><span class="yu-tile__wm">PROMOTE</span></a>
+        <a class="yu-tile" href="https://line.me/ti/g2/zhNz5BNZeWapB9HD1bZQGAyxI74_OVx8PPttyQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener"><span class="yu-tile__no">10</span><span class="yu-tile__ico">◉</span><span class="yu-tile__name">官方社群</span><span class="yu-tile__wm">COMMUNITY</span></a>
+        <a class="yu-tile" href="pages/contact.html"><span class="yu-tile__no">11</span><span class="yu-tile__ico">☎</span><span class="yu-tile__name">聯絡客服</span><span class="yu-tile__wm">CONTACT</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 活動公告 ═══════════════════════ -->
+  <section id="notice" class="ts-sec ts-sec--alt">
+    <div class="ts-wrap">
+      <div class="ts-reveal">
+        <div class="ts-kick">Notice · 御赦公告欄</div>
+        <h2 class="ts-title">活動公告</h2>
+        <p class="ts-sub">開服活動一覽 · 像遊戲內公告的延伸</p>
+      </div>
+      <div class="ts-notice">
+        <a class="ts-nrow pin ts-reveal" href="https://line.me/R/ti/p/@628zvmsy?oat_content=url&ts=08141301" target="_blank" rel="noopener"><div class="ts-ndate">09<small>/04</small></div><div class="ts-nbody"><div class="ts-nt">御赦開服 · 御赦臨世</div><div class="ts-nd">9/04（五）20:00 榮耀開服，登入即領開服好禮！</div></div><span class="ts-ntag hot">置頂</span></a>
+        <a class="ts-nrow ts-reveal" href="pages/event-first-sponsor.html"><div class="ts-ndate">長期</div><div class="ts-nbody"><div class="ts-nt">首儲回饋 · 稀有寶箱＋噬魂魔核</div><div class="ts-nd">首次贊助即贈稀有變身卡寶箱、噬魂魔核、名譽貨幣等豐厚好禮。</div></div><span class="ts-ntag new">首儲</span></a>
+        <a class="ts-nrow ts-reveal" href="pages/event-line-gift.html"><div class="ts-ndate">即日</div><div class="ts-nbody"><div class="ts-nt">LINE 社群新手禮包</div><div class="ts-nd">加入官方 LINE 社群即領：自動內掛、變形卷軸、推廣幣、治癒藥水等。</div></div><span class="ts-ntag new">禮包</span></a>
+        <a class="ts-nrow ts-reveal" href="pages/feature-night-welfare.html"><div class="ts-ndate">每日</div><div class="ts-nbody"><div class="ts-nt">夜間福利 · 龍族獵殺</div><div class="ts-nd">18:30–08:00 開放入場，挑戰龍族後裔掉落稀有寶箱與魔核。</div></div><span class="ts-ntag day">每日</span></a>
+        <a class="ts-nrow ts-reveal" href="pages/event-milestone.html"><div class="ts-ndate">里程</div><div class="ts-nbody"><div class="ts-nt">人數里程碑 · 全服放福利</div><div class="ts-nd">滿 50 人每人送 500 藍鑽、滿 100 人每人送 1,000 藍鑽！本服不收團不灌水。</div></div><span class="ts-ntag hot">福利</span></a>
+      </div>
+      <a class="ts-more ts-reveal" href="pages/events.html">查看全部活動 →</a>
+    </div>
+  </section>
+
+  
+
+
+
+  <!-- ═══════════════════════ 職業介紹 ═══════════════════════ -->
+  <section class="ts-sec">
+    <div class="ts-wrap">
+      <div class="ts-reveal">
+        <div class="ts-kick">Character · 御赦神將</div>
+        <h2 class="ts-title">職業介紹</h2>
+        <p class="ts-sub">五大職業 · 各展神通</p>
+      </div>
+      <div class="ts-class ts-reveal">
+        <a class="ts-cc" href="pages/feature-skills.html" style="text-decoration:none"><div class="ts-cc__fig" style="background-color:#f0c33c;background-image:url('assets/images/class-royalty.jpg')"><div class="ts-cc__num">CLASS 01</div><div class="ts-cc__body"><div class="ts-cc__name">王族</div><div class="ts-cc__en">ROYALTY</div><div class="ts-cc__role">亞丁王室血脈的繼承者</div></div></div></a>
+        <a class="ts-cc" href="pages/feature-skills.html" style="text-decoration:none"><div class="ts-cc__fig" style="background-color:#7796c6;background-image:url('assets/images/class-knight.jpg')"><div class="ts-cc__num">CLASS 02</div><div class="ts-cc__body"><div class="ts-cc__name">騎士</div><div class="ts-cc__en">KNIGHT</div><div class="ts-cc__role">以信念守護王國的鋼鐵戰士</div></div></div></a>
+        <a class="ts-cc" href="pages/feature-skills.html" style="text-decoration:none"><div class="ts-cc__fig" style="background-color:#3e8f5a;background-image:url('assets/images/class-elf.jpg')"><div class="ts-cc__num">CLASS 03</div><div class="ts-cc__body"><div class="ts-cc__name">妖精</div><div class="ts-cc__en">ELF</div><div class="ts-cc__role">來自森林深處的自然守護者</div></div></div></a>
+        <a class="ts-cc" href="pages/feature-skills.html" style="text-decoration:none"><div class="ts-cc__fig" style="background-color:#977cc0;background-image:url('assets/images/class-wizard.jpg')"><div class="ts-cc__num">CLASS 04</div><div class="ts-cc__body"><div class="ts-cc__name">法師</div><div class="ts-cc__en">WIZARD</div><div class="ts-cc__role">探索真理與禁忌的魔法學者</div></div></div></a>
+        <a class="ts-cc" href="pages/feature-skills.html" style="text-decoration:none"><div class="ts-cc__fig" style="background-color:#d84a38;background-image:url('assets/images/class-darkelf.jpg')"><div class="ts-cc__num">CLASS 05</div><div class="ts-cc__body"><div class="ts-cc__name">黑暗妖精</div><div class="ts-cc__en">DARK ELF</div><div class="ts-cc__role">誕生於黑暗與復仇的獵殺者</div></div></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer id="site-footer">
+    <div class="container">
+
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/images/logo-circle.jpg" class="footer-logo-icon" alt="御赦天堂">
+          <div class="footer-brand-text">
+            <span class="logo-text">御赦天堂</span>
+            
+          </div>
+        </div>
+        <nav class="footer-links">
+          <a href="pages/features-overview.html" class="footer-link">
+            <span class="footer-link__icon">⚔</span>特色介紹
+          </a>
+          <span class="footer-link-sep">·</span>
+          <a href="pages/rules.html" class="footer-link">
+            <span class="footer-link__icon">◆</span>遊戲規章
+          </a>
+          <span class="footer-link-sep">·</span>
+          <a href="pages/sponsor.html" class="footer-link">
+            <span class="footer-link__icon">✤</span>贊助須知
+          </a>
+          <span class="footer-link-sep">·</span>
+          <a href="pages/disclaimer.html" class="footer-link">
+            <span class="footer-link__icon">†</span>免責聲明
+          </a>
+          <span class="footer-link-sep">·</span>
+          <a href="pages/contact.html" class="footer-link">
+            <span class="footer-link__icon">✉</span>聯絡我們
+          </a>
+        </nav>
+      </div>
+
+      <div class="footer-copy">
+        <div class="footer-copy__line"></div>
+        <p>© 2026 御赦天堂 · 本遊戲限 18 歲以上玩家參與 · 遊戲有成癮性，請節制遊玩 · 本站與 NC Soft 官方無任何關聯</p>
+      </div>
+
+    </div>
+        <div style="max-width:1080px;margin:0 auto;padding:12px 24px 0;display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <a href="https://lin.ee/UbLA1Dq" target="_blank" rel="noopener" style="color:var(--gold-dim);font-size:12px;letter-spacing:1.2px;font-weight:600;text-shadow:0 0 10px rgba(245, 213, 128,0.36);text-decoration:none;">阿柴美工 LINE @323rffot 美工找我~</a>
+        <a href="https://www.gamex123.com/lineage.html" target="_blank" rel="noopener" style="display:inline-flex;opacity:0.82;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.82'">
+          <img src="assets/images/private-server-123.gif" alt="私服123" style="display:block;width:78px;height:auto;" loading="lazy">
+        </a>
+      </div>
+    </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+  /* 累計瀏覽人數：免費計數服務 + 基數 1499，離線 fallback localStorage */
+  (function(){
+    var el = document.getElementById('visitCount');
+    if (!el) return;
+    var BASE = 1499;
+    function show(n){ el.textContent = Number(n).toLocaleString('en-US'); }
+    // 數字滾動動畫
+    function animateTo(target){
+      var start = BASE, t0 = null, dur = 1200;
+      function step(ts){
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        show(Math.floor(start + (target - start) * eased));
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    fetch('https://abacus.jasoncameron.dev/hit/yushe-lineage/homepage')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var v = (d && (d.value != null ? d.value : d.count)) || 0;
+        animateTo(BASE + v);
+      })
+      .catch(function(){
+        var k = 'ts_views';
+        var v = parseInt(localStorage.getItem(k) || '0', 10) + 1;
+        localStorage.setItem(k, v);
+        animateTo(BASE + v);
+      });
+  })();
+  </script>
+  <script>
+  /* 沉浸式滾動揭示 */
+  (function(){
+    var els = document.querySelectorAll('.ts-reveal');
+    if (!els.length || !('IntersectionObserver' in window)) { els.forEach(function(el){el.classList.add('in');}); return; }
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.14 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+  </script>
+</body>
+</html>

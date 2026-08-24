@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>御赦天堂 — 後台管理</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #0a0610; color: #e0d8c8; min-height: 100vh; }
+
+    /* 密語門檻 */
+    #gate {
+      display: flex; align-items: center; justify-content: center; min-height: 100vh;
+      background: radial-gradient(ellipse at 50% 30%, #1a0e2e 0%, #0a0610 70%);
+    }
+    .gate-box {
+      background: linear-gradient(135deg, #14102a, #0e0a1c);
+      border: 1px solid rgba(212,168,32,0.3); border-radius: 8px;
+      padding: 48px 40px; text-align: center; max-width: 400px; width: 90%;
+    }
+    .gate-box h1 { font-size: 1.4rem; color: #ffe060; margin-bottom: 8px; letter-spacing: 0.1em; }
+    .gate-box p { font-size: 0.85rem; color: #8a7a60; margin-bottom: 28px; }
+    .gate-input {
+      width: 100%; padding: 14px 16px; background: #0a0610; border: 1px solid #2a1f40;
+      border-radius: 4px; color: #e0d8c8; font-size: 1rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .gate-input:focus { border-color: rgba(212,168,32,0.6); }
+    .gate-btn {
+      width: 100%; padding: 14px; margin-top: 16px; background: linear-gradient(135deg, #d4a820, #a08018);
+      border: none; border-radius: 4px; color: #0a0610; font-size: 1rem; font-weight: 700;
+      cursor: pointer; letter-spacing: 0.08em; transition: opacity 0.2s;
+    }
+    .gate-btn:hover { opacity: 0.9; }
+    .gate-error { color: #ef5350; font-size: 0.82rem; margin-top: 12px; display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- 密語驗證門 -->
+  <div id="gate">
+    <div class="gate-box">
+      <h1>御赦天堂</h1>
+      <p>後台管理系統 · 請輸入管理密語</p>
+      <input type="password" id="gatePass" class="gate-input" placeholder="管理密語" autofocus>
+      <button onclick="verifyGate()" class="gate-btn">進入後台</button>
+      <div id="gateError" class="gate-error">密語錯誤，請重新輸入</div>
+    </div>
+  </div>
+
+  <script>
+    // 預設密語 hash（密語：souldevourer2025）
+    // SHA-256 of "souldevourer-admin:souldevourer2025"
+    var ADMIN_HASH = '74b83f1c3dd878b47b9e3a6870dc0a901b5affcf4d5b5eb4d8d0f61fdddb8d55';
+
+    // 檢查是否要鎖定
+    if (location.search.includes('lock')) {
+      localStorage.removeItem('sd_admin_gate');
+      // 清除後重導到不含 ?lock 的 URL
+      location.href = location.pathname;
+    }
+
+    // 檢查是否已驗證
+    (function() {
+      var saved = localStorage.getItem('sd_admin_gate');
+      if (saved === ADMIN_HASH) {
+        loadCMS();
+      }
+    })();
+
+    async function sha256(text) {
+      var data = new TextEncoder().encode(text);
+      var buf = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(buf)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+    }
+
+    async function verifyGate() {
+      var pass = document.getElementById('gatePass').value;
+      var hash = await sha256('souldevourer-admin:' + pass);
+      if (hash === ADMIN_HASH) {
+        localStorage.setItem('sd_admin_gate', hash);
+        loadCMS();
+      } else {
+        document.getElementById('gateError').style.display = 'block';
+      }
+    }
+
+    // Enter 鍵提交
+    document.getElementById('gatePass').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') verifyGate();
+    });
+
+    function loadCMS() {
+      document.getElementById('gate').style.display = 'none';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
+      script.onload = function() {
+        registerPreviews();
+      };
+      document.body.appendChild(script);
+    }
+
+    function registerPreviews() {
+      // 公告預覽
+      var AnnouncementPreview = createClass({
+        render: function() {
+          var updates = this.props.entry.getIn(['data', 'updates']);
+          var announcements = this.props.entry.getIn(['data', 'announcements']);
+          return h('div', { style: { fontFamily: 'sans-serif', background: '#0a0610', color: '#e0d8c8', padding: '24px', minHeight: '100%' } },
+            h('h2', { style: { color: '#ffe060', borderBottom: '1px solid #2a1f40', paddingBottom: '10px' } }, '最新消息預覽'),
+            updates && updates.map(function(item, i) {
+              return h('div', { key: i, style: { background: '#14102a', border: '1px solid #2a1f40', borderRadius: '4px', padding: '14px 18px', marginBottom: '8px' } },
+                h('div', { style: { display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '6px' } },
+                  h('span', { style: { background: 'rgba(212,168,32,0.15)', color: '#ffe060', padding: '2px 10px', borderRadius: '2px', fontSize: '0.75rem', fontWeight: 700 } }, item.get('tag') || '公告'),
+                  h('span', { style: { color: '#6a6080', fontSize: '0.78rem' } }, item.get('date') || '')
+                ),
+                h('div', { style: { color: '#e0d8c8', fontSize: '0.9rem', fontWeight: 700 } }, item.get('title') || '')
+              );
+            }),
+            h('h3', { style: { color: '#ffe060', marginTop: '24px' } }, '跑馬燈公告'),
+            announcements && announcements.map(function(item, i) {
+              return h('div', { key: i, style: { color: '#c8b880', padding: '4px 0', fontSize: '0.85rem' } }, '◆ ' + (item.get('text') || ''));
+            })
+          );
+        }
+      });
+
+      // 活動預覽
+      var EventsPreview = createClass({
+        render: function() {
+          var active = this.props.entry.getIn(['data', 'active']);
+          var upcoming = this.props.entry.getIn(['data', 'upcoming']);
+          return h('div', { style: { fontFamily: 'sans-serif', background: '#0a0610', color: '#e0d8c8', padding: '24px', minHeight: '100%' } },
+            h('h2', { style: { color: '#ffe060', borderBottom: '1px solid #2a1f40', paddingBottom: '10px' } }, '◆ 進行中活動'),
+            active && active.map(function(ev, i) {
+              var tagColors = { permanent: '#80cbc4', active: '#80cbc4', coming: '#90caf9' };
+              return h('div', { key: i, style: { background: '#14102a', border: '1px solid #2a1f40', borderRadius: '4px', padding: '16px 20px', marginBottom: '10px' } },
+                h('div', { style: { display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '8px' } },
+                  h('span', { style: { background: 'rgba(0,200,100,0.15)', color: tagColors[ev.get('tag_style')] || '#80cbc4', padding: '3px 10px', borderRadius: '2px', fontSize: '0.7rem', fontWeight: 700 } }, ev.get('tag') || '長期活動')
+                ),
+                h('div', { style: { color: '#fff', fontSize: '1rem', fontWeight: 700, marginBottom: '6px' } }, ev.get('title') || ''),
+                h('div', { style: { color: '#8a7a60', fontSize: '0.82rem', lineHeight: 1.7 } }, ev.get('desc') || ''),
+                h('div', { style: { color: '#6a6080', fontSize: '0.75rem', marginTop: '6px' } }, ev.get('date_label') || ''),
+                ev.get('link') ? h('div', { style: { color: '#d4a820', fontSize: '0.75rem', marginTop: '4px' } }, '→ ' + ev.get('link_text', '查看詳情')) : null
+              );
+            }),
+            h('h2', { style: { color: '#ffe060', borderBottom: '1px solid #2a1f40', paddingBottom: '10px', marginTop: '24px' } }, '◈ 即將推出'),
+            upcoming && upcoming.map(function(ev, i) {
+              return h('div', { key: i, style: { background: '#14102a', border: '1px solid #2a1f40', borderRadius: '4px', padding: '16px 20px', marginBottom: '10px', opacity: 0.6 } },
+                h('div', { style: { color: '#fff', fontWeight: 700 } }, ev.get('title') || ''),
+                h('div', { style: { color: '#6a6080', fontSize: '0.82rem', marginTop: '4px' } }, ev.get('desc') || '')
+              );
+            })
+          );
+        }
+      });
+
+      // 網站設定預覽
+      var SitePreview = createClass({
+        render: function() {
+          var data = this.props.entry.get('data');
+          return h('div', { style: { fontFamily: 'sans-serif', background: '#0a0610', color: '#e0d8c8', padding: '24px', minHeight: '100%' } },
+            h('h2', { style: { color: '#ffe060', borderBottom: '1px solid #2a1f40', paddingBottom: '10px' } }, '網站設定預覽'),
+            h('table', { style: { width: '100%', borderCollapse: 'collapse', marginTop: '16px' } },
+              [
+                ['伺服器名稱', data.get('server_name')],
+                ['伺服器狀態', data.get('server_status')],
+                ['開服日期', data.get('launch_date')],
+                ['版本', data.get('version')],
+              ].map(function(row, i) {
+                return h('tr', { key: i, style: { borderBottom: '1px solid #1e1630' } },
+                  h('td', { style: { padding: '10px 14px', color: '#ffe060', fontWeight: 700, width: '40%' } }, row[0]),
+                  h('td', { style: { padding: '10px 14px', color: '#e0d8c8' } }, row[1] || '-')
+                );
+              })
+            )
+          );
+        }
+      });
+
+      CMS.registerPreviewTemplate('announcements', AnnouncementPreview);
+      CMS.registerPreviewTemplate('events', EventsPreview);
+      CMS.registerPreviewTemplate('site_settings', SitePreview);
+    }
+  </script>
+
+</body>
+</html>
