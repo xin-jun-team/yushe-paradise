@@ -1,6 +1,15 @@
 {
   "active": [
     {
+      "title": "愛情永存 💍",
+      "desc": "紀念愛情的偉大航道！單筆贊助滿額即贈「情人戒指」一枚，銘刻永恆誓約，攜手征戰亞丁大陸。",
+      "date_label": "永久活動 · 每帳號限領一次",
+      "link": "event-love-eternal.html",
+      "tag": "永久活動",
+      "tag_style": "permanent",
+      "link_text": "查看詳情"
+    },
+    {
       "title": "LINE 社群新手禮包",
       "desc": "加入 LINE 社群，截圖官網並提供帳號即可領取名譽貨幣、巧克力蛋糕、象牙塔治癒藥水等豐厚獎勵。",
       "date_label": "即日起 · 每帳號限領一次",
