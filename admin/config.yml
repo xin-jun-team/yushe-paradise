@@ -188,7 +188,7 @@ collections:
             default: "準備中"
           - { name: launch_date, label: 開服日期, widget: string, default: "08/21 (五) 20:00" }
           - { name: version, label: 遊戲版本, widget: string, default: "3.81 天M版" }
-          - { name: line_official, label: LINE 官方客服連結, widget: string, default: "https://lin.ee/PKHUd99" }
+          - { name: line_official, label: LINE 官方客服連結, widget: string, default: "https://lin.ee/QUAmWH7" }
           - { name: line_community, label: LINE 社群連結, widget: string }
           - name: popup
             label: 彈窗公告
